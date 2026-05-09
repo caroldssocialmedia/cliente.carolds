@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>-CarolDs · Social Media — Briefing de Cliente</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0a0a0a;
+  --off-white: #f0ece6;
+  --cream: #e8e3dc;
+  --white: #ffffff;
+  --gray-100: #e0dbd3;
+  --gray-300: #a8a39b;
+  --gray-500: #6e6960;
+  --gray-700: #3a3630;
+  --gold: #e8e3dc;
+  --gold-light: rgba(201,169,110,0.12);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--black);
+  color: var(--off-white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed; left: 0; top: 0;
+  width: 250px; height: 100vh;
+  background: #0e0e0e;
+  border-right: 0.5px solid #1e1e1e;
+  display: flex; flex-direction: column;
+  padding: 2rem 1.5rem;
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+.logo-wrap {
+  display: flex; align-items: center; justify-content: center;
+  padding: 0.5rem 0 2rem;
+  border-bottom: 0.5px solid #1e1e1e;
+  margin-bottom: 1.75rem;
+}
+.logo-wrap img {
+  width: 140px;
+  filter: invert(1);
+  opacity: 0.95;
+}
+.nav-label {
+  font-size: 0.58rem; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gray-500);
+  margin-bottom: 0.6rem; margin-top: 1.25rem;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 0.5rem 0.75rem; border-radius: 7px;
+  font-size: 0.8rem; color: var(--gray-300);
+  cursor: pointer; transition: all 0.2s;
+  margin-bottom: 2px;
+  border: 0.5px solid transparent;
+}
+.nav-item:hover { background: #181818; color: var(--off-white); }
+.nav-item.active { background: #1c1c1c; color: var(--white); border-color: #2a2a2a; }
+.nav-item.active .ndot { background: var(--gold); }
+.ndot { width: 5px; height: 5px; border-radius: 50%; background: #2e2e2e; flex-shrink: 0; transition: background 0.2s; }
+.sidebar-footer {
+  margin-top: auto; padding-top: 1.25rem;
+  border-top: 0.5px solid #1e1e1e;
+}
+.agent-tag {
+  font-size: 0.68rem; color: var(--gray-500);
+  letter-spacing: 0.08em; text-align: center;
+}
+.agent-tag span { color: var(--gold); }
+
+/* ── MAIN ── */
+.main { margin-left: 250px; min-height: 100vh; }
+
+/* ── HERO ── */
+.hero {
+  background: #0c0c0c;
+  border-bottom: 0.5px solid #1a1a1a;
+  padding: 2.75rem 3rem 2rem;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: -80px; right: -80px;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,0.055) 0%, transparent 68%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 0.65rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 0.65rem; font-weight: 500;
+}
+.hero-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; }
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem; font-weight: 300;
+  color: var(--white); line-height: 1.2; letter-spacing: 0.01em;
+}
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-desc {
+  font-size: 0.83rem; color: var(--gray-300);
+  margin-top: 0.65rem; max-width: 500px;
+  line-height: 1.75; font-weight: 300;
+}
+.live-badge {
+  display: flex; align-items: center; gap: 7px;
+  background: #111; border: 0.5px solid #242424;
+  border-radius: 20px; padding: 0.38rem 0.9rem;
+  font-size: 0.7rem; color: var(--gray-300);
+  white-space: nowrap; height: fit-content; flex-shrink: 0;
+}
+.live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #4ade80; animation: blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+/* Steps pills */
+.steps-bar { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.steps-bar::-webkit-scrollbar { display: none; }
+.step-pill {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 13px; border-radius: 20px;
+  font-size: 0.7rem; border: 0.5px solid transparent;
+  cursor: pointer; transition: all 0.2s;
+  white-space: nowrap; color: var(--gray-500); background: transparent;
+}
+.step-pill:hover { color: var(--gray-300); border-color: #282828; }
+.step-pill.active { color: var(--gold); border-color: rgba(201,169,110,0.28); background: rgba(201,169,110,0.05); }
+.step-pill.done { color: #4ade80; border-color: rgba(74,222,128,0.2); background: rgba(74,222,128,0.04); }
+.snum {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #222; display: flex; align-items: center; justify-content: center;
+  font-size: 0.5rem; flex-shrink: 0; color: #555; transition: all 0.2s;
+}
+.step-pill.done .snum { background: rgba(74,222,128,0.2); color: #4ade80; }
+.step-pill.active .snum { background: rgba(201,169,110,0.2); color: var(--gold); }
+
+/* Progress bar */
+.prog-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+.prog-label { font-size: 0.7rem; color: var(--gray-500); white-space: nowrap; }
+.prog-track { flex: 1; height: 1.5px; background: #1e1e1e; border-radius: 2px; overflow: hidden; }
+.prog-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width 0.5s ease; }
+.prog-pct { font-size: 0.7rem; color: var(--gold); font-weight: 500; white-space: nowrap; }
+
+/* ── CONTENT ── */
+.content { padding: 2.5rem 3rem; }
+.section { display: none; }
+.section.active { display: block; }
+
+.sec-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+.sec-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem; font-weight: 300;
+  color: #1e1e1e; line-height: 1; min-width: 48px;
+}
+.sec-title { font-size: 1rem; font-weight: 500; color: var(--white); }
+.sec-sub { font-size: 0.73rem; color: var(--gray-500); margin-top: 2px; }
+
+/* Grid */
+.fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.fgrid.solo { grid-template-columns: 1fr; }
+.fg { display: flex; flex-direction: column; gap: 6px; }
+.fg.s2 { grid-column: span 2; }
+
+label {
+  font-size: 0.68rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gray-500); font-weight: 500;
+}
+.req { color: var(--gold); }
+
+input[type="text"], input[type="email"], input[type="url"], input[type="tel"],
+textarea, select {
+  background: #111; border: 0.5px solid #232323;
+  border-radius: 8px; color: var(--off-white);
+  font-family: 'DM Sans', sans-serif; font-size: 0.84rem; font-weight: 300;
+  padding: 0.68rem 1rem; transition: border-color 0.2s, background 0.2s;
+  outline: none; resize: vertical; width: 100%;
+}
+input::placeholder, textarea::placeholder { color: #333; }
+input:focus, textarea:focus, select:focus { border-color: var(--gold); background: #141414; }
+select {
+  appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%236e6960' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+select option { background: #111; color: var(--off-white); }
+textarea { min-height: 88px; }
+
+/* Radio group */
+.radio-row { display: flex; flex-direction: column; gap: 6px; }
+.radio-opt {
+  display: flex; align-items: center; gap: 10px;
+  padding: 0.55rem 0.85rem; border-radius: 8px;
+  background: #111; border: 0.5px solid #232323;
+  cursor: pointer; transition: all 0.2s;
+}
+.radio-opt:hover { border-color: #333; }
+.radio-opt input[type="radio"] { accent-color: var(--gold); width: 14px; height: 14px; flex-shrink: 0; }
+.radio-opt span { font-size: 0.82rem; color: var(--gray-300); font-weight: 300; }
+.radio-opt.selected { border-color: rgba(201,169,110,0.35); background: rgba(201,169,110,0.05); }
+.radio-opt.selected span { color: var(--off-white); }
+
+/* Tags */
+.tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
+.tag {
+  padding: 6px 14px; border-radius: 20px;
+  font-size: 0.74rem; border: 0.5px solid #252525;
+  cursor: pointer; transition: all 0.2s;
+  color: var(--gray-300); background: #111; user-select: none;
+}
+.tag:hover { border-color: #333; color: var(--off-white); }
+.tag.on { border-color: var(--gold); color: var(--gold); background: rgba(201,169,110,0.06); }
+
+/* Termômetro / Matrix */
+.matrix-wrap { overflow-x: auto; }
+.matrix {
+  width: 100%; border-collapse: collapse; min-width: 480px;
+}
+.matrix th {
+  font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gray-500); font-weight: 500; padding: 0.5rem 0.75rem;
+  border-bottom: 0.5px solid #1e1e1e; text-align: center;
+}
+.matrix th:first-child { text-align: left; }
+.matrix td {
+  padding: 0.5rem 0.75rem; border-bottom: 0.5px solid #181818;
+  font-size: 0.8rem; color: var(--gray-300); font-weight: 300;
+}
+.matrix td:not(:first-child) { text-align: center; }
+.matrix tr:hover td { background: #111; }
+.matrix input[type="radio"] { accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; }
+
+/* Upload */
+.drop-zone {
+  border: 0.5px dashed #2e2e2e; border-radius: 10px;
+  padding: 1.75rem; text-align: center; cursor: pointer;
+  transition: all 0.25s; background: #0d0d0d;
+}
+.drop-zone:hover { border-color: var(--gold); background: #111; }
+.drop-zone.drag { border-color: var(--gold); background: rgba(201,169,110,0.04); }
+.drop-icon { font-size: 1.6rem; margin-bottom: 0.6rem; display: block; opacity: 0.4; }
+.drop-label { font-size: 0.8rem; color: var(--gray-300); margin-bottom: 3px; }
+.drop-label strong { color: var(--gold); font-weight: 500; }
+.drop-hint { font-size: 0.68rem; color: var(--gray-500); }
+.file-input { display: none; }
+.files-list { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 0.85rem; }
+.fchip {
+  display: flex; align-items: center; gap: 6px;
+  background: #181818; border: 0.5px solid #252525;
+  border-radius: 20px; padding: 4px 10px 4px 8px;
+  font-size: 0.7rem; color: var(--gray-300);
+}
+.fchip-x {
+  cursor: pointer; color: var(--gray-500); font-size: 0.9rem;
+  background: none; border: none; padding: 0; transition: color 0.15s;
+}
+.fchip-x:hover { color: #e55; }
+
+/* Links */
+.links-area { display: flex; flex-direction: column; gap: 7px; }
+.link-row { display: flex; gap: 7px; align-items: center; }
+.link-row input { flex: 1; }
+.btn-icon {
+  width: 36px; height: 36px; border: 0.5px solid #252525;
+  border-radius: 8px; background: #111; color: var(--gray-500);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; transition: all 0.2s; flex-shrink: 0;
+}
+.btn-icon:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Divider */
+.div { height: 0.5px; background: #181818; margin: 1.75rem 0; }
+
+/* Buttons */
+.btn-row {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 2rem; padding-top: 1.5rem; border-top: 0.5px solid #181818;
+  gap: 1rem;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 0.62rem 1.4rem; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.81rem;
+  font-weight: 500; cursor: pointer; transition: all 0.2s; border: none;
+}
+.btn-ghost { background: transparent; border: 0.5px solid #252525; color: var(--gray-300); }
+.btn-ghost:hover { border-color: #333; color: var(--off-white); }
+.btn-primary { background: var(--gold); color: var(--black); }
+.btn-primary:hover { background: #d4b07a; }
+.btn-outline { background: transparent; border: 0.5px solid #303030; color: var(--gray-300); }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Summary */
+.sum-card {
+  background: #0d0d0d; border: 0.5px solid #232323;
+  border-radius: 12px; padding: 2rem;
+}
+.sum-head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 0.5px solid #1a1a1a;
+  flex-wrap: wrap; gap: 1rem;
+}
+.sum-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 400; color: var(--white);
+}
+.sum-actions { display: flex; gap: 8px; }
+.sum-sec { margin-bottom: 1.25rem; }
+.sum-sec-label {
+  font-size: 0.6rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 0.65rem; font-weight: 500;
+}
+.sum-item {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 0.35rem 0; border-bottom: 0.5px solid #161616; gap: 1rem;
+}
+.sum-key { font-size: 0.73rem; color: var(--gray-500); min-width: 180px; flex-shrink: 0; }
+.sum-val { font-size: 0.8rem; color: var(--off-white); text-align: right; font-weight: 300; }
+.sum-val.empty { color: #2e2e2e; font-style: italic; }
+.sum-block {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; font-weight: 400; line-height: 1.55;
+  color: var(--off-white); padding: 0.75rem 0; font-style: italic;
+}
+
+/* Welcome cards */
+.wcard {
+  background: #0d0d0d; border: 0.5px solid #222;
+  border-radius: 10px; padding: 1.25rem;
+}
+.wcard-icon { font-size: 1.3rem; margin-bottom: 0.4rem; display: block; }
+.wcard-title { font-size: 0.82rem; color: var(--off-white); font-weight: 500; margin-bottom: 3px; }
+.wcard-desc { font-size: 0.72rem; color: var(--gray-500); }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 2rem; right: 2rem;
+  background: #1a1a1a; border: 0.5px solid #303030; border-radius: 10px;
+  padding: 0.7rem 1.2rem; font-size: 0.78rem; color: var(--off-white);
+  display: flex; align-items: center; gap: 8px;
+  transform: translateY(80px); opacity: 0;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); z-index: 999;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* Mobile */
+.mob-btn {
+  display: none; position: fixed; top: 1rem; left: 1rem;
+  z-index: 200; width: 40px; height: 40px; border-radius: 8px;
+  background: #111; border: 0.5px solid #252525; cursor: pointer;
+  align-items: center; justify-content: center; flex-direction: column; gap: 4px;
+}
+.mob-btn span { display: block; width: 17px; height: 1.5px; background: var(--gray-300); border-radius: 2px; }
+.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.72); z-index: 90; }
+
+@media(max-width: 800px){
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .hero { padding: 4.5rem 1.5rem 1.5rem; }
+  .hero-top { flex-direction: column; gap: 1rem; }
+  .hero-title { font-size: 2rem; }
+  .content { padding: 1.5rem; }
+  .fgrid { grid-template-columns: 1fr; }
+  .fg.s2 { grid-column: span 1; }
+  .mob-btn { display: flex; }
+  .overlay.vis { display: block; }
+  .btn-row { flex-direction: column; }
+  .btn-row .btn { width: 100%; justify-content: center; }
+  .sum-head { flex-direction: column; }
+  .sum-key { min-width: 120px; }
+}
+</style>
+</head>
+<body>
+
+<button class="mob-btn" onclick="toggleSidebar()" aria-label="Menu">
+  <span></span><span></span><span></span>
+</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="logo-wrap">
+    <img src="data:image/jpeg;base64,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" alt="-CarolDs Social Media">
+  </div>
+
+  <div class="nav-label">Briefing</div>
+  <div class="nav-item active" onclick="gotoSec(0);setNav(this)"><div class="ndot"></div>Boas-vindas</div>
+  <div class="nav-item" onclick="gotoSec(1);setNav(this)"><div class="ndot"></div>Perfil & Identidade</div>
+  <div class="nav-item" onclick="gotoSec(2);setNav(this)"><div class="ndot"></div>Público & Posicionamento</div>
+  <div class="nav-item" onclick="gotoSec(3);setNav(this)"><div class="ndot"></div>Atributos da Marca</div>
+  <div class="nav-item" onclick="gotoSec(4);setNav(this)"><div class="ndot"></div>Instagram & Conteúdo</div>
+  <div class="nav-item" onclick="gotoSec(5);setNav(this)"><div class="ndot"></div>Objetivos & Prioridades</div>
+  <div class="nav-item" onclick="gotoSec(6);setNav(this)"><div class="ndot"></div>Referências Visuais</div>
+  <div class="nav-item" onclick="gotoSec(7);buildSummary();setNav(this)"><div class="ndot"></div>Resumo Final</div>
+
+  <div class="nav-label">Sistema</div>
+  <div class="nav-item" onclick="toast('🚧 Em breve: Aprovação de Conteúdo')"><div class="ndot"></div>Aprovação de Conteúdo</div>
+  <div class="nav-item" onclick="toast('🚧 Em breve: área de clientes')"><div class="ndot"></div>Clientes</div>
+
+  <div class="sidebar-footer">
+    <div class="agent-tag">Plataforma <span>CarolDs</span> · Social Media</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="hero-eyebrow">✦ Sistema de Onboarding & Briefing de Clientes</div>
+        <h1 class="hero-title">Bem-vinda à sua<br><em>plataforma.</em></h1>
+        <p class="hero-desc">Colete, organize e exporte briefings completos dos seus clientes com clareza e eficiência. Cada resposta é salva automaticamente enquanto você digita.</p>
+      </div>
+      <div class="live-badge"><div class="live-dot"></div>Plataforma ativa</div>
+    </div>
+    <div class="prog-row">
+      <span class="prog-label">Progresso</span>
+      <div class="prog-track"><div class="prog-fill" id="progBar" style="width:0%"></div></div>
+      <span class="prog-pct" id="progPct">0%</span>
+    </div>
+    <div class="steps-bar">
+      <div class="step-pill active" onclick="gotoSec(0)"><div class="snum">✓</div>Início</div>
+      <div class="step-pill" id="p1" onclick="gotoSec(1)"><div class="snum">✓</div>Perfil</div>
+      <div class="step-pill" id="p2" onclick="gotoSec(2)"><div class="snum">✓</div>Público</div>
+      <div class="step-pill" id="p3" onclick="gotoSec(3)"><div class="snum">✓</div>Atributos</div>
+      <div class="step-pill" id="p4" onclick="gotoSec(4)"><div class="snum">✓</div>Instagram</div>
+      <div class="step-pill" id="p5" onclick="gotoSec(5)"><div class="snum">✓</div>Objetivos</div>
+      <div class="step-pill" id="p6" onclick="gotoSec(6)"><div class="snum">✓</div>Referências</div>
+      <div class="step-pill" id="p7" onclick="gotoSec(7);buildSummary()"><div class="snum">✓</div>Resumo</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- SEC 0: Welcome -->
+    <div class="section active" id="sec0">
+      <div style="max-width:580px">
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:300;color:var(--white);line-height:1.3;margin-bottom:1rem">
+          Antes de começar, <em style="font-style:italic;color:var(--gold)">precisamos nos conhecer.</em>
+        </h2>
+        <p style="font-size:0.86rem;color:var(--gray-300);line-height:1.8;margin-bottom:1.75rem;font-weight:300">
+          Este formulário foi criado para que a equipe da <strong style="color:var(--off-white);font-weight:500">-CarolDs Social Media</strong> entenda profundamente o seu negócio, seus objetivos e a essência da sua comunicação. Quanto mais completo, mais estratégico será o nosso trabalho juntos.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:2rem">
+          <div class="wcard"><span class="wcard-icon">⏱</span><div class="wcard-title">Tempo estimado</div><div class="wcard-desc">20–30 minutos</div></div>
+          <div class="wcard"><span class="wcard-icon">💾</span><div class="wcard-title">Salvo automaticamente</div><div class="wcard-desc">Ao digitar, sem perder nada</div></div>
+          <div class="wcard"><span class="wcard-icon">📋</span><div class="wcard-title">Resumo exportável</div><div class="wcard-desc">Copie ou baixe ao final</div></div>
+          <div class="wcard"><span class="wcard-icon">📎</span><div class="wcard-title">Upload de referências</div><div class="wcard-desc">Imagens, logos, arquivos</div></div>
+        </div>
+        <button class="btn btn-primary" onclick="gotoSec(1)">Iniciar briefing →</button>
+      </div>
+    </div>
+
+    <!-- SEC 1: Perfil & Identidade -->
+    <div class="section" id="sec1">
+      <div class="sec-header">
+        <div class="sec-num">01</div>
+        <div><div class="sec-title">Perfil & identidade</div><div class="sec-sub">Informações básicas sobre você e sua marca</div></div>
+      </div>
+      <div class="fgrid">
+        <div class="fg">
+          <label>Qual o seu @ no Instagram? <span class="req">*</span></label>
+          <input type="text" id="f_arroba" placeholder="@suamarca" oninput="sv('arroba',this.value);upProg()">
+        </div>
+        <div class="fg">
+          <label>Nome completo / da empresa</label>
+          <input type="text" id="f_nome" placeholder="Seu nome ou razão social" oninput="sv('nome',this.value)">
+        </div>
+        <div class="fg s2">
+          <label>Você possui uma marca ou você é a sua marca? <span class="req">*</span></label>
+          <div class="radio-row">
+            <label class="radio-opt" onclick="selectRadio(this,'tipo_marca','Possuo uma marca (empresa/produto separado de mim)')">
+              <input type="radio" name="tipo_marca" value="marca"> <span>Possuo uma marca — empresa ou produto separado de mim</span>
+            </label>
+            <label class="radio-opt" onclick="selectRadio(this,'tipo_marca','Eu sou a minha marca (marca pessoal)')">
+              <input type="radio" name="tipo_marca" value="pessoal"> <span>Eu sou a minha marca — marca pessoal</span>
+            </label>
+            <label class="radio-opt" onclick="selectRadio(this,'tipo_marca','Os dois — marca pessoal e empresarial')">
+              <input type="radio" name="tipo_marca" value="ambos"> <span>Os dois — marca pessoal e empresarial</span>
+            </label>
+          </div>
+        </div>
+        <div class="fg s2">
+          <label>O que você faz? <span class="req">*</span></label>
+          <textarea id="f_oque_faz" placeholder="Descreva com suas próprias palavras o que você ou sua empresa faz, como surgiu e o que a torna especial..." oninput="sv('oque_faz',this.value);upProg()"></textarea>
+        </div>
+        <div class="fg">
+          <label>Qual nicho o seu perfil pertence? <span class="req">*</span></label>
+          <input type="text" id="f_nicho" placeholder="Ex: moda, saúde, design, loja, gastronomia..." oninput="sv('nicho',this.value);upProg()">
+        </div>
+        <div class="fg">
+          <label>E-mail de contato</label>
+          <input type="email" id="f_email" placeholder="email@empresa.com" oninput="sv('email',this.value)">
+        </div>
+        <div class="fg">
+          <label>WhatsApp / Telefone</label>
+          <input type="tel" id="f_tel" placeholder="(11) 99999-9999" oninput="sv('tel',this.value)">
+        </div>
+        <div class="fg">
+          <label>Site ou link da bio</label>
+          <input type="url" id="f_site" placeholder="https://..." oninput="sv('site',this.value)">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="gotoSec(0)">← Voltar</button>
+        <button class="btn btn-primary" onclick="gotoSec(2)">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- SEC 2: Público & Posicionamento -->
+    <div class="section" id="sec2">
+      <div class="sec-header">
+        <div class="sec-num">02</div>
+        <div><div class="sec-title">Público & posicionamento</div><div class="sec-sub">Quem você alcança e como quer ser visto</div></div>
+      </div>
+      <div class="fgrid">
+        <div class="fg s2">
+          <label>Qual o objetivo do seu perfil? <span class="req">*</span></label>
+          <textarea id="f_objetivo_perfil" placeholder="Ex: vender produtos, gerar autoridade, atrair clientes, construir comunidade, lançar serviço..." oninput="sv('objetivo_perfil',this.value);upProg()"></textarea>
+        </div>
+        <div class="fg s2">
+          <label>Como você descreveria seu consumidor / seguidor ideal? <span class="req">*</span></label>
+          <textarea id="f_publico_ideal" placeholder="Ex: Mulheres de 25 a 40 anos que trabalham com moda e buscam referências de estilo no Instagram..." oninput="sv('publico_ideal',this.value);upProg()"></textarea>
+        </div>
+        <div class="fg s2">
+          <label>Como você gostaria que o seu público descrevesse você ou a sua marca? <span class="req">*</span></label>
+          <textarea id="f_descricao_positiva" placeholder="Com quais palavras ou sentimentos você quer que seu público associe à sua marca?" oninput="sv('descricao_positiva',this.value);upProg()"></textarea>
+        </div>
+        <div class="fg s2">
+          <label>Como você gostaria que o seu público NÃO descrevesse você ou a sua marca? <span class="req">*</span></label>
+          <textarea id="f_descricao_negativa" placeholder="Quais percepções ou associações você definitivamente não quer ter?" oninput="sv('descricao_negativa',this.value)"></textarea>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="gotoSec(1)">← Voltar</button>
+        <button class="btn btn-primary" onclick="gotoSec(3)">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- SEC 3: Termômetro de Atributos -->
+    <div class="section" id="sec3">
+      <div class="sec-header">
+        <div class="sec-num">03</div>
+        <div><div class="sec-title">Termômetro dos atributos</div><div class="sec-sub">Indique o quanto cada atributo representa a sua marca</div></div>
+      </div>
+      <div class="matrix-wrap">
+        <table class="matrix" id="termometro">
+          <thead>
+            <tr>
+              <th>Atributo</th>
+              <th>Muito</th>
+              <th>Sim</th>
+              <th>Um pouco</th>
+              <th>Não</th>
+            </tr>
+          </thead>
+          <tbody id="termBody"></tbody>
+        </table>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="gotoSec(2)">← Voltar</button>
+        <button class="btn btn-primary" onclick="gotoSec(4)">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- SEC 4: Instagram & Conteúdo -->
+    <div class="section" id="sec4">
+      <div class="sec-header">
+        <div class="sec-num">04</div>
+        <div><div class="sec-title">Instagram & conteúdo</div><div class="sec-sub">Ferramentas, frequência e tipos de post</div></div>
+      </div>
+
+      <div class="fg" style="margin-bottom:1rem">
+        <label>Quais ferramentas você mais utiliza no Instagram? <span class="req">*</span></label>
+        <div class="tags" id="tags_ferramentas">
+          <div class="tag" onclick="tTag(this,'ferramentas')">Feed</div>
+          <div class="tag" onclick="tTag(this,'ferramentas')">Stories</div>
+          <div class="tag" onclick="tTag(this,'ferramentas')">Reels</div>
+          <div class="tag" onclick="tTag(this,'ferramentas')">Lives</div>
+          <div class="tag" onclick="tTag(this,'ferramentas')">Transmissões</div>
+          <div class="tag" onclick="tTag(this,'ferramentas')">Close Friends</div>
+          <div class="tag" onclick="tTag(this,'ferramentas')">Destaques</div>
+          <div class="tag" onclick="tTag(this,'ferramentas')">Links na bio</div>
+        </div>
+      </div>
+
+      <div class="div"></div>
+
+      <div class="fgrid">
+        <div class="fg">
+          <label>Frequência atual de posts no feed <span class="req">*</span></label>
+          <select id="f_freq_feed_atual" onchange="sv('freq_feed_atual',this.value)">
+            <option value="">Selecione</option>
+            <option>Não posto regularmente</option>
+            <option>1x por semana</option>
+            <option>2–3x por semana</option>
+            <option>4–5x por semana</option>
+            <option>Todos os dias</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Frequência atual de posts nos stories <span class="req">*</span></label>
+          <select id="f_freq_stories_atual" onchange="sv('freq_stories_atual',this.value)">
+            <option value="">Selecione</option>
+            <option>Não posto regularmente</option>
+            <option>1–2x por semana</option>
+            <option>3–4x por semana</option>
+            <option>Todos os dias</option>
+            <option>Várias vezes ao dia</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Frequência desejada de posts no feed <span class="req">*</span></label>
+          <select id="f_freq_feed_desejada" onchange="sv('freq_feed_desejada',this.value)">
+            <option value="">Selecione</option>
+            <option>1x por semana</option>
+            <option>2–3x por semana</option>
+            <option>4–5x por semana</option>
+            <option>Todos os dias</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Frequência desejada de posts nos stories <span class="req">*</span></label>
+          <select id="f_freq_stories_desejada" onchange="sv('freq_stories_desejada',this.value)">
+            <option value="">Selecione</option>
+            <option>1–2x por semana</option>
+            <option>3–4x por semana</option>
+            <option>Todos os dias</option>
+            <option>Várias vezes ao dia</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="div"></div>
+
+      <div class="fg" style="margin-bottom:1rem">
+        <label>Conteúdos que não podem faltar no seu <strong style="color:var(--off-white)">feed</strong> <span class="req">*</span></label>
+        <div class="tags" id="tags_feed">
+          <div class="tag" onclick="tTag(this,'conteudo_feed')">Fotos de produto</div>
+          <div class="tag" onclick="tTag(this,'conteudo_feed')">Carrossel educativo</div>
+          <div class="tag" onclick="tTag(this,'conteudo_feed')">Reels de bastidores</div>
+          <div class="tag" onclick="tTag(this,'conteudo_feed')">Reels de tendência</div>
+          <div class="tag" onclick="tTag(this,'conteudo_feed')">Depoimentos/provas sociais</div>
+          <div class="tag" onclick="tTag(this,'conteudo_feed')">Frases / citações</div>
+          <div class="tag" onclick="tTag(this,'conteudo_feed')">Antes e depois</div>
+          <div class="tag" onclick="tTag(this,'conteudo_feed')">Datas comemorativas</div>
+          <div class="tag" onclick="tTag(this,'conteudo_feed')">Promoções / ofertas</div>
+          <div class="tag" onclick="tTag(this,'conteudo_feed')">Conteúdo pessoal</div>
+        </div>
+        <div style="margin-top:8px">
+          <input type="text" id="f_feed_outro" placeholder="Outro: descreva aqui..." oninput="sv('conteudo_feed_outro',this.value)" style="font-size:0.8rem">
+        </div>
+      </div>
+
+      <div class="fg" style="margin-bottom:1.5rem">
+        <label>Conteúdos que não podem faltar nos seus <strong style="color:var(--off-white)">stories</strong> <span class="req">*</span></label>
+        <div class="tags" id="tags_stories">
+          <div class="tag" onclick="tTag(this,'conteudo_stories')">Bastidores do dia a dia</div>
+          <div class="tag" onclick="tTag(this,'conteudo_stories')">Enquetes / interações</div>
+          <div class="tag" onclick="tTag(this,'conteudo_stories')">Caixinha de perguntas</div>
+          <div class="tag" onclick="tTag(this,'conteudo_stories')">Divulgação de posts do feed</div>
+          <div class="tag" onclick="tTag(this,'conteudo_stories')">Promoções relâmpago</div>
+          <div class="tag" onclick="tTag(this,'conteudo_stories')">Repostagens de clientes</div>
+          <div class="tag" onclick="tTag(this,'conteudo_stories')">Links / CTA direto</div>
+          <div class="tag" onclick="tTag(this,'conteudo_stories')">Novidades e lançamentos</div>
+        </div>
+        <div style="margin-top:8px">
+          <input type="text" id="f_stories_outro" placeholder="Outro: descreva aqui..." oninput="sv('conteudo_stories_outro',this.value)" style="font-size:0.8rem">
+        </div>
+      </div>
+
+      <div class="fg" style="margin-bottom:1.5rem">
+        <label>Se tiver, adicione perfis que te inspiram</label>
+        <textarea id="f_inspiracoes" placeholder="@perfil1, @perfil2, links de referência... Conte o que você admira neles." rows="3" oninput="sv('inspiracoes',this.value)"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="gotoSec(3)">← Voltar</button>
+        <button class="btn btn-primary" onclick="gotoSec(5)">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- SEC 5: Objetivos & Prioridades -->
+    <div class="section" id="sec5">
+      <div class="sec-header">
+        <div class="sec-num">05</div>
+        <div><div class="sec-title">Objetivos & prioridades</div><div class="sec-sub">O que você quer alcançar melhorando a qualidade dos posts</div></div>
+      </div>
+
+      <p style="font-size:0.82rem;color:var(--gray-300);margin-bottom:1.25rem;font-weight:300">
+        Classifique cada objetivo abaixo de acordo com o nível de importância para o seu momento atual:
+      </p>
+
+      <div class="matrix-wrap">
+        <table class="matrix" id="objMatrix">
+          <thead>
+            <tr>
+              <th>Objetivo</th>
+              <th>Muito importante</th>
+              <th>Importante</th>
+              <th>Pouco importante</th>
+              <th>Nada importante</th>
+            </tr>
+          </thead>
+          <tbody id="objBody"></tbody>
+        </table>
+      </div>
+
+      <div class="div"></div>
+
+      <div class="fg" style="margin-bottom:1.5rem">
+        <label>Há algum produto ou serviço para lançar em breve?</label>
+        <textarea id="f_lancamento" placeholder="Conte sobre novidades que estão por vir e que devem fazer parte do planejamento de conteúdo..." rows="3" oninput="sv('lancamento',this.value)"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="gotoSec(4)">← Voltar</button>
+        <button class="btn btn-primary" onclick="gotoSec(6)">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- SEC 6: Referências Visuais -->
+    <div class="section" id="sec6">
+      <div class="sec-header">
+        <div class="sec-num">06</div>
+        <div><div class="sec-title">Referências visuais & identidade</div><div class="sec-sub">Estética, cores e materiais</div></div>
+      </div>
+
+      <div class="fgrid">
+        <div class="fg s2">
+          <label>Há algum elemento que você gostaria que fizesse parte do projeto? <span class="req">*</span></label>
+          <textarea id="f_elementos_sim" placeholder="Ex: fontes específicas, formas geométricas, texturas, estética editorial, fotografia com luz natural..." rows="3" oninput="sv('elementos_sim',this.value);upProg()"></textarea>
+        </div>
+        <div class="fg s2">
+          <label>Há algum elemento convencional ou específico que você NÃO deseja no seu projeto? <span class="req">*</span></label>
+          <textarea id="f_elementos_nao" placeholder="Ex: não quero fundo branco, não quero humor, não quero estética muito colorida..." rows="3" oninput="sv('elementos_nao',this.value)"></textarea>
+        </div>
+        <div class="fg">
+          <label>Possui alguma cor de preferência?</label>
+          <input type="text" id="f_cor_sim" placeholder="Ex: tons terrosos, azul marinho, dourado..." oninput="sv('cor_sim',this.value)">
+        </div>
+        <div class="fg">
+          <label>Possui alguma cor que NÃO deseja de forma alguma?</label>
+          <input type="text" id="f_cor_nao" placeholder="Ex: rosa pink, verde limão..." oninput="sv('cor_nao',this.value)">
+        </div>
+      </div>
+
+      <div class="div"></div>
+
+      <div class="fg" style="margin-bottom:1.25rem">
+        <label>Upload de logos, imagens e referências visuais</label>
+        <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()" ondrop="onDrop(event)" ondragover="onDragOver(event)" ondragleave="onDragLeave(event)">
+          <span class="drop-icon">📎</span>
+          <div class="drop-label"><strong>Clique para enviar</strong> ou arraste aqui</div>
+          <div class="drop-hint">PNG, JPG, PDF, MP4 · até 20MB por arquivo</div>
+        </div>
+        <input type="file" id="fileInput" class="file-input" multiple accept="image/*,.pdf,.mp4" onchange="onFileSelect(event)">
+        <div class="files-list" id="filesList"></div>
+      </div>
+
+      <div class="fg" style="margin-bottom:1.25rem">
+        <label>Links de referências, concorrentes ou inspirações</label>
+        <div class="links-area" id="linksArea">
+          <div class="link-row">
+            <input type="url" placeholder="https://..." oninput="saveLinks()">
+            <button class="btn-icon" onclick="addLink()" title="+">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="fg">
+        <label>Observações adicionais sobre referências visuais</label>
+        <textarea id="f_obs_visual" placeholder="Qualquer detalhe estético importante que queira compartilhar com a nossa equipe..." rows="3" oninput="sv('obs_visual',this.value)"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="gotoSec(5)">← Voltar</button>
+        <button class="btn btn-primary" onclick="gotoSec(7);buildSummary()">Ver resumo →</button>
+      </div>
+    </div>
+
+    <!-- SEC 7: Resumo Final -->
+    <div class="section" id="sec7">
+      <div class="sec-header">
+        <div class="sec-num">07</div>
+        <div><div class="sec-title">Resumo do briefing</div><div class="sec-sub">Revise, copie ou exporte todas as informações</div></div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-head">
+          <div class="sum-title">Briefing Completo — <em style="font-style:italic;color:var(--gold)" id="sumNome">Cliente</em></div>
+          <div class="sum-actions">
+            <button class="btn btn-outline" onclick="copyBriefing()">📋 Copiar</button>
+            <button class="btn btn-primary" onclick="exportBriefing()">⬇ Exportar .txt</button>
+          </div>
+        </div>
+        <div id="summaryContent"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="gotoSec(6)">← Voltar</button>
+        <button class="btn btn-primary" onclick="toast('✅ Briefing enviado com sucesso para a equipe CarolDs!')">Enviar para a equipe ✦</button>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</main>
+
+<div class="toast" id="toastEl"><span id="toastMsg">Salvo</span></div>
+
+<script>
+const D = {};
+const T = {};
+const atributos = ['Elegante','Tradicional','Moderna','Séria','Divertida','Acessível','Exclusiva','Feminina','Masculina','Infantil','Jovem','Madura','Ousada','Técnica','Intuitiva','Rebelde','Disciplinada','Popular','Artesanal','Industrial','Corporativa','Romântica','Descontraída','Retrô'];
+const objetivos = ['Ganhar seguidores','Conquistar novos clientes','Fidelizar clientes','Aumentar as vendas / procura pelo serviço','Gerar autoridade','Agregar valor ao seu serviço','Divulgar um serviço de qualidade','Ampliar seu público','Se destacar no mercado'];
+let uploadedFiles = [];
+let curSec = 0;
+let toastTimer;
+
+function buildTables(){
+  const tb = document.getElementById('termBody');
+  atributos.forEach((a,i)=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${a}</td>
+      <td><input type="radio" name="attr_${i}" value="Muito" onchange="D['attr_${a}']='Muito'"></td>
+      <td><input type="radio" name="attr_${i}" value="Sim" onchange="D['attr_${a}']='Sim'"></td>
+      <td><input type="radio" name="attr_${i}" value="Um pouco" onchange="D['attr_${a}']='Um pouco'"></td>
+      <td><input type="radio" name="attr_${i}" value="Não" onchange="D['attr_${a}']='Não'"></td>`;
+    tb.appendChild(tr);
+  });
+  const ob = document.getElementById('objBody');
+  objetivos.forEach((o,i)=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${o}</td>
+      <td><input type="radio" name="obj_${i}" value="Muito importante" onchange="D['obj_${o}']='Muito importante'"></td>
+      <td><input type="radio" name="obj_${i}" value="Importante" onchange="D['obj_${o}']='Importante'"></td>
+      <td><input type="radio" name="obj_${i}" value="Pouco importante" onchange="D['obj_${o}']='Pouco importante'"></td>
+      <td><input type="radio" name="obj_${i}" value="Nada importante" onchange="D['obj_${o}']='Nada importante'"></td>`;
+    ob.appendChild(tr);
+  });
+}
+
+function sv(k,v){ D[k]=v; toast('💾 Salvo automaticamente',1200); }
+function tTag(el,group){
+  if(!T[group]) T[group]=[];
+  const v=el.textContent;
+  if(el.classList.contains('on')){ el.classList.remove('on'); T[group]=T[group].filter(x=>x!==v); }
+  else { el.classList.add('on'); T[group].push(v); }
+  D['tag_'+group]=T[group].join(', ');
+}
+function selectRadio(el,key,val){
+  el.closest('.radio-row').querySelectorAll('.radio-opt').forEach(r=>r.classList.remove('selected'));
+  el.classList.add('selected');
+  D[key]=val;
+}
+function addLink(){
+  const area=document.getElementById('linksArea');
+  const row=document.createElement('div');
+  row.className='link-row';
+  row.innerHTML=`<input type="url" placeholder="https://..." oninput="saveLinks()"><button class="btn-icon" onclick="this.parentNode.remove();saveLinks()" title="×">×</button>`;
+  area.appendChild(row);
+}
+function saveLinks(){
+  D.links=Array.from(document.querySelectorAll('#linksArea input')).map(i=>i.value).filter(v=>v.trim()).join(' | ');
+}
+function onDragOver(e){ e.preventDefault(); document.getElementById('dropZone').classList.add('drag'); }
+function onDragLeave(){ document.getElementById('dropZone').classList.remove('drag'); }
+function onDrop(e){ e.preventDefault(); document.getElementById('dropZone').classList.remove('drag'); addFiles(Array.from(e.dataTransfer.files)); }
+function onFileSelect(e){ addFiles(Array.from(e.target.files)); }
+function addFiles(files){
+  files.forEach(f=>{
+    if(!uploadedFiles.find(x=>x.name===f.name)){ uploadedFiles.push(f); renderChip(f); }
+  });
+  D.arquivos=uploadedFiles.map(f=>f.name).join(', ');
+  toast('📎 '+files.length+' arquivo(s) adicionado(s)');
+}
+function renderChip(f){
+  const list=document.getElementById('filesList');
+  const c=document.createElement('div'); c.className='fchip'; c.dataset.name=f.name;
+  c.innerHTML=`<span>📄</span><span style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${f.name}</span><button class="fchip-x" onclick="removeFile('${f.name}',this.parentNode)">×</button>`;
+  list.appendChild(c);
+}
+function removeFile(name,el){ uploadedFiles=uploadedFiles.filter(f=>f.name!==name); el.remove(); D.arquivos=uploadedFiles.map(f=>f.name).join(', '); }
+
+function gotoSec(n){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec'+n).classList.add('active');
+  curSec=n; updatePills(); upProg();
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(window.innerWidth<=800){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('vis'); }
+}
+function setNav(el){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+}
+function updatePills(){
+  for(let i=1;i<=7;i++){
+    const p=document.getElementById('p'+i);
+    if(!p) continue;
+    p.classList.remove('active','done');
+    if(i<curSec) p.classList.add('done');
+    else if(i===curSec) p.classList.add('active');
+  }
+}
+function upProg(){
+  const keys=['arroba','oque_faz','nicho','objetivo_perfil','publico_ideal','descricao_positiva','elementos_sim'];
+  const filled=keys.filter(k=>D[k]&&D[k].trim()).length;
+  const pct=Math.round(filled/keys.length*100);
+  document.getElementById('progBar').style.width=pct+'%';
+  document.getElementById('progPct').textContent=pct+'%';
+}
+
+function buildSummary(){
+  const nm=D.nome||D.arroba||'Cliente';
+  document.getElementById('sumNome').textContent=nm;
+  const attrRows=atributos.map(a=>D['attr_'+a]?`${a}: ${D['attr_'+a]}`:'').filter(Boolean).join(' · ')||'—';
+  const objRows=objetivos.map(o=>D['obj_'+o]?`${o} → ${D['obj_'+o]}`:'').filter(Boolean).join('\n')||'—';
+  const secs=[
+    {title:'Perfil & identidade',items:[
+      {k:'Instagram (@)',v:D.arroba},{k:'Nome',v:D.nome},{k:'Tipo de marca',v:D.tipo_marca},
+      {k:'Nicho',v:D.nicho},{k:'E-mail',v:D.email},{k:'Telefone',v:D.tel},{k:'Site',v:D.site}
+    ],block:D.oque_faz,blockLabel:'O que você faz'},
+    {title:'Público & posicionamento',items:[
+      {k:'Objetivo do perfil',v:D.objetivo_perfil},{k:'Público ideal',v:D.publico_ideal},
+      {k:'Como quer ser descrito',v:D.descricao_positiva},{k:'Como NÃO quer ser descrito',v:D.descricao_negativa}
+    ]},
+    {title:'Termômetro de atributos',items:[{k:'Respostas',v:attrRows}]},
+    {title:'Instagram & conteúdo',items:[
+      {k:'Ferramentas utilizadas',v:D.tag_ferramentas||'—'},{k:'Freq. atual — feed',v:D.freq_feed_atual},
+      {k:'Freq. atual — stories',v:D.freq_stories_atual},{k:'Freq. desejada — feed',v:D.freq_feed_desejada},
+      {k:'Freq. desejada — stories',v:D.freq_stories_desejada},
+      {k:'Conteúdo do feed',v:(D.tag_conteudo_feed||'')+(D.conteudo_feed_outro?', '+D.conteudo_feed_outro:'')},
+      {k:'Conteúdo dos stories',v:(D.tag_conteudo_stories||'')+(D.conteudo_stories_outro?', '+D.conteudo_stories_outro:'')},
+      {k:'Perfis de inspiração',v:D.inspiracoes}
+    ]},
+    {title:'Objetivos & prioridades',items:[{k:'Classificação',v:objRows},{k:'Lançamentos previstos',v:D.lancamento}]},
+    {title:'Referências visuais',items:[
+      {k:'Elementos desejados',v:D.elementos_sim},{k:'Elementos indesejados',v:D.elementos_nao},
+      {k:'Cores de preferência',v:D.cor_sim},{k:'Cores a evitar',v:D.cor_nao},
+      {k:'Arquivos enviados',v:D.arquivos},{k:'Links de referência',v:D.links},
+      {k:'Observações visuais',v:D.obs_visual}
+    ]}
+  ];
+  let html='';
+  secs.forEach(sec=>{
+    html+=`<div class="sum-sec"><div class="sum-sec-label">${sec.title}</div>`;
+    if(sec.block&&sec.block.trim()) html+=`<div class="sum-block">"${sec.block}"</div>`;
+    sec.items.forEach(item=>{
+      const empty=!item.v||!String(item.v).trim();
+      html+=`<div class="sum-item"><span class="sum-key">${item.k}</span><span class="sum-val ${empty?'empty':''}">${empty?'Não informado':item.v}</span></div>`;
+    });
+    html+='</div>';
+  });
+  document.getElementById('summaryContent').innerHTML=html;
+}
+
+function getBriefingText(){
+  const attrRows=atributos.map(a=>D['attr_'+a]?`  ${a}: ${D['attr_'+a]}`:'').filter(Boolean).join('\n')||'  Não respondido';
+  const objRows=objetivos.map(o=>D['obj_'+o]?`  ${o} → ${D['obj_'+o]}`:'').filter(Boolean).join('\n')||'  Não respondido';
+  return `
+╔══════════════════════════════════════════════╗
+  BRIEFING DE CLIENTE — -CarolDs Social Media
+  ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})}
+╚══════════════════════════════════════════════╝
+
+▸ PERFIL & IDENTIDADE
+  Instagram (@): ${D.arroba||'—'}
+  Nome: ${D.nome||'—'}
+  Tipo de marca: ${D.tipo_marca||'—'}
+  Nicho: ${D.nicho||'—'}
+  E-mail: ${D.email||'—'}
+  Telefone: ${D.tel||'—'}
+  Site: ${D.site||'—'}
+
+  O que você faz:
+  ${D.oque_faz||'—'}
+
+▸ PÚBLICO & POSICIONAMENTO
+  Objetivo do perfil:
+  ${D.objetivo_perfil||'—'}
+
+  Público ideal:
+  ${D.publico_ideal||'—'}
+
+  Como quer ser descrito:
+  ${D.descricao_positiva||'—'}
+
+  Como NÃO quer ser descrito:
+  ${D.descricao_negativa||'—'}
+
+▸ TERMÔMETRO DE ATRIBUTOS
+${attrRows}
+
+▸ INSTAGRAM & CONTEÚDO
+  Ferramentas utilizadas: ${D.tag_ferramentas||'—'}
+  Freq. atual — feed: ${D.freq_feed_atual||'—'}
+  Freq. atual — stories: ${D.freq_stories_atual||'—'}
+  Freq. desejada — feed: ${D.freq_feed_desejada||'—'}
+  Freq. desejada — stories: ${D.freq_stories_desejada||'—'}
+  Conteúdo do feed: ${(D.tag_conteudo_feed||'')+( D.conteudo_feed_outro?', '+D.conteudo_feed_outro:'')||'—'}
+  Conteúdo dos stories: ${(D.tag_conteudo_stories||'')+(D.conteudo_stories_outro?', '+D.conteudo_stories_outro:'')||'—'}
+  Perfis de inspiração: ${D.inspiracoes||'—'}
+
+▸ OBJETIVOS & PRIORIDADES
+${objRows}
+  Lançamentos previstos: ${D.lancamento||'—'}
+
+▸ REFERÊNCIAS VISUAIS
+  Elementos desejados: ${D.elementos_sim||'—'}
+  Elementos indesejados: ${D.elementos_nao||'—'}
+  Cores de preferência: ${D.cor_sim||'—'}
+  Cores a evitar: ${D.cor_nao||'—'}
+  Arquivos enviados: ${D.arquivos||'—'}
+  Links de referência: ${D.links||'—'}
+  Observações visuais: ${D.obs_visual||'—'}
+
+——————————————————————————————————
+Gerado por -CarolDs Social Media · Plataforma de Briefing
+`.trim();
+}
+function copyBriefing(){
+  const t=getBriefingText();
+  navigator.clipboard.writeText(t).then(()=>toast('📋 Briefing copiado!')).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('📋 Briefing copiado!');
+  });
+}
+function exportBriefing(){
+  const t=getBriefingText();
+  const blob=new Blob([t],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=`briefing-${(D.arroba||D.nome||'cliente').replace(/[@\s]+/g,'-').toLowerCase()}-${new Date().toISOString().split('T')[0]}.txt`;
+  a.click(); URL.revokeObjectURL(url);
+  toast('⬇ Exportando briefing...');
+}
+
+function toast(msg,dur){
+  const el=document.getElementById('toastEl');
+  document.getElementById('toastMsg').textContent=msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),dur||2500);
+}
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('vis');
+}
+
+buildTables();
+</script>
+</body>
+</html>
